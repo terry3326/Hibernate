@@ -1,0 +1,20 @@
+
+\
+java:S2259h"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP8’ıÜ†Ê.
+\
+java:S2259M"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP8Œ£ª‡Ê.
+g
+java:S2259j"EA "NullPointerException" could be thrown; "session" is nullable here.(ËÇÇÓûÿÿÿÿ8’ıÜ†Ê.
+g
+java:S2259O"EA "NullPointerException" could be thrown; "session" is nullable here.(ËÇÇÓûÿÿÿÿ8Œ£ª‡Ê.
+T	java:S106$"9Replace this use of System.out or System.err by a logger.(Ú‚Ÿ@8˜„‡Ê.
+U	java:S106c"9Replace this use of System.out or System.err by a logger.(ê¾ú®8’ıÜ†Ê.
+g
+java:S2259+"EA "NullPointerException" could be thrown; "session" is nullable here.(ËÇÇÓûÿÿÿÿ8¡…˜ûÉ.
+L
+java:S1128"*Remove this unused import 'java.util.Set'.(ö²„¤şÿÿÿÿ8¨²˜ûÉ.
+\
+java:S2259)"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP8¡…˜ûÉ.
+U	java:S106H"9Replace this use of System.out or System.err by a logger.(ê¾ú®8Œ£ª‡Ê.
+Y
+java:S1128"7Remove this unused import 'com.onetomany.bean.LinkMan'.(åœŞïùÿÿÿÿ8¨²˜ûÉ.

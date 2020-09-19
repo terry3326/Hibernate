@@ -1,0 +1,111 @@
+※1. 對象導航查詢
+    (1)根據id查詢某個客戶,在查詢這個客戶裡面所有的聯繫人
+
+※2. OID查詢
+    (1)根據id查詢某一條紀錄,返回對象
+    //根據cid=1客戶,再查詢這個客戶裡面的所有聯繫人
+    Customer customer = (Customer) session.get(Customer.class, 1);
+  
+※3. HQL查詢 :
+1) hibernate query language ,hibernate提供一種查詢語言,hql語言和普通sql很相似
+   區別,普通sql操作數據庫表和字段,hql操作實體類和屬性
+2) 常用的hql語句
+(1)查詢所有: from 實體類名稱
+(2)條件查詢: from 實體類名稱 where 屬性名稱=?
+(3)排序查詢: from 實體類名稱 order by 實體類屬性名稱 asc/desc
+
+3) 使用hql查詢操作時候,使用query對象
+(1)創建query對象,寫hql語句
+(2)調用query對象裡面的方法得到結果
+            //根據cid=1客戶,再查詢這個客戶裡面的所有聯繫人
+            Customer customer = (Customer) session.get(Customer.class, 1);
+            //再查詢這個客戶裡面的所有聯繫人
+            //直接得到客戶裡面聯繫人的set集合
+            Set<LinkMan> linkMan = customer.getSetLinkMan();
+
+1./查詢所有: from 實體類名稱
+(1)創建一個Query對象,寫HQL語句
+(2)調用query對象裡面的方法得到結果
+            //1.創建一個Query對象
+                   Query query = session.createQuery("from Customer");
+            //2.調用方法得到結果
+                   List<Customer> list = query.list();
+2./條件查詢
+(1)hql條件查詢語句寫法:
+from 實體類名稱 where 實體類屬性名稱=? and 實體類屬性名稱=?
+            //1.創建query對象
+            //select * from customer where cid = ? and custName = ?
+            Query query = session.createQuery("from Customer c where c.cid=? and c.custName=?");
+            //2.設置條件值
+            //向?裡面設置值
+            //setParameter方法：第一個參數:?的位置,?位置從0開始 ;第二個參數:具體參數值
+            //設置第一個?值
+            query.setParameter(0, 1);
+            //設置第二個?值
+            query.setParameter(1, "百度");
+            //3.調用方法得到結果
+            List<Customer> list = query.list();
+
+模糊查詢 from 實體類名稱 where 實體類屬性名稱 like?
+            //1.創建query對象
+            //select * from customer where  custName like ?
+            Query query = session.createQuery("from Customer c where c.custName like ?");
+            //2.設置?值 %米%
+            query.setParameter(0, "%米%");
+            //3.調用方法得到結果
+            List<Customer> list = query.list();
+
+
+3./排序查詢
+(1) from 實體類名稱 order by 實體類屬性名稱 asc/desc
+            //1.創建query對象
+            //select * from customer where  custName like ?
+            //Query query = session.createQuery("from Customer order by cid asc");//升序
+            Query query = session.createQuery("from Customer order by cid desc");//降序
+            //2.調用方法得到結果
+            List<Customer> list = query.list();
+4./分頁查詢
+    1.mysql實現分頁 : select * from Customer limit 0,3
+    2.在HQL中操作中,在語句裡面不能寫limit,hibernate的query對象封裝兩個方法實現分頁操作
+                //1.創建query對象
+                Query query = session.createQuery("from Customer");
+                //2.設置分頁數據
+                //2.1設置開始位置
+                query.setFirstResult(0);
+                //2.2設置每頁紀錄數
+                query.setMaxResults(3);
+                //3.調用方法得到結果
+                List<Customer> list = query.list();
+
+5./投影查詢: 查詢不是所有字段值,而是部分字段的值 sql:select cid from customer
+(1)HQL語句寫法
+   select 實體類屬性名稱1,實體類屬性名稱2 from 實體類名稱
+(2)select 後面不能寫 * , HQL不支持
+            //1.創建query對象
+            Query query = session.createQuery("select custName from Customer");
+            //2.調用方法得到結果
+            List<Object> list = query.list();
+
+6./聚集函數查詢
+(1)count、sum、avg、max、min
+(2)HQL聚集函數語句寫法
+查詢表紀錄數: select count(*) from 實體類名稱
+            //1.創建query對象
+            Query query = session.createQuery("select count(*) from Customer");
+            //2.調用方法得到結果
+            //query對象裡面有方法,直接返回對象形式(long類型)
+            Object obj = query.uniqueResult();
+            //強轉成int類型會報"類型轉換異常",
+            //int count = (int) obj;
+            //先把Object變成long,再變成int類型
+            Long lobj = (Long) obj;
+            int count = lobj.intValue();
+
+
+4. QBC查詢
+(1)criteria對象
+
+5. 本地SQL查詢
+(1)SQLQuery對象,使用普通sql實現查詢
+
+

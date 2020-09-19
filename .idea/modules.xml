@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/HibernateModule/HibernateModule.iml" filepath="$PROJECT_DIR$/HibernateModule/HibernateModule.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HibernateModule2/HibernateModule2.iml" filepath="$PROJECT_DIR$/HibernateModule2/HibernateModule2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HibernateModule3/HibernateModule3.iml" filepath="$PROJECT_DIR$/HibernateModule3/HibernateModule3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HibernateModule3/HibernateModule4.iml" filepath="$PROJECT_DIR$/HibernateModule3/HibernateModule4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HibernateModule5/HibernateModule5.iml" filepath="$PROJECT_DIR$/HibernateModule5/HibernateModule5.iml" />
+    </modules>
+  </component>
+</project>

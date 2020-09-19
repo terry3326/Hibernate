@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping >
+
+    <class name="com.manytomany.bean.Role" table="t_role" >
+        <!-- 1.配置類和表對應
+           class標籤
+           name屬性:實體類全路徑
+           table屬性:數據庫表名稱
+        -->
+        <id name="role_id" column="role_id" >
+            <!-- 指定主键的生成方式, native: 使用数据库本地方式 -->
+            <generator class="native" />
+        </id>
+        <property name="role_name" column="role_name"/>
+        <property name="role_memo" column="role_memo"/>
+
+        <!-- 在角色裡面表示所有用戶，使用set標籤 table:創建的第三張表名稱-->
+        <set name="setUser" table="user_role" >
+            <!--角色在第三張表外鍵名稱-->
+            <key column="roleid"/>
+            <!-- class:角色實體類全路徑
+                 column:用戶在第三張表外鍵名稱
+             -->
+            <many-to-many class="com.manytomany.bean.User" column="userid"/>
+        </set>
+    </class>
+    
+
+
+
+</hibernate-mapping>

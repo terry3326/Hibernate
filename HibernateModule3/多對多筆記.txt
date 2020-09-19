@@ -1,0 +1,73 @@
+※多對多映射配置
+以用戶和角色為例演示
+第一步 創建實體類:用戶和角色
+
+第二步 讓兩個實體類之間互相表示
+(1)一個用戶裡面表示一個角色,使用set集合
+(1)一個角色裡面表示一個用戶,使用set集合
+
+第三步 配置映射關係
+(1)基本配置
+(2)配置多對多關係
+    在用戶裡面表示所有角色，使用set標籤
+            <!-- 在用戶裡面表示所有角色，使用set標籤 table:創建的第三張表名稱-->
+            <set name="setRole" table="user_role">
+                <!-- key標籤裡面配置
+                    配置當前映射文件在第三張表外鍵名稱
+                 -->
+                <key column="userid"></key>
+                <!-- class:角色實體類全路徑
+                     column:角色在第三張表外鍵名稱
+                 -->
+                <many-to-many class="Role" column="roleid"></many-to-many>
+            </set>
+
+    在角色裡面表示所有用戶，使用set標籤
+             <!-- 在角色裡面表示所有用戶，使用set標籤 table:創建的第三張表名稱-->
+                 <set name="setUser" table="user_role">
+                     <!--角色在第三張表外鍵名稱-->
+                     <key column="roleid"></key>
+                     <!-- class:角色實體類全路徑
+                          column:用戶在第三張表外鍵名稱
+                      -->
+                     <many-to-many class="User" column="userid"></many-to-many>
+                 </set>
+    ※ 兩表的many-to-many標籤中的column值要跟另個表的key標籤中的column值相同(代表的是第三張表對應的外鍵名稱)
+第四步 在核心配置文件中引入映射文件
+        <mapping resource="com/manytomany/Role.hbm.xml"/>
+        <mapping resource="com/manytomany/User.hbm.xml"/>
+
+※多對多級聯保存
+根據用戶保存角色
+第一步 在用戶配置文件中set標籤進行配置, cascade 值 save-update
+<set name="setRole" table="user_role" cascade="save-update">
+第二步 寫代碼實現
+(1) 創建用戶和角色對象,把角色放到用戶裡面,最終保存用戶就可以了.
+例 : public void testSave()
+
+※多對多級聯保存(了解) 會有問題所以都不使用
+第一步 在set標籤進行配置,cascade值delete
+第二步 刪除用戶
+
+※維護第三張表關係
+1. 用戶和角色多對多關係,維護關係通過第三張表
+2. 讓某個用戶有某個角色 testTable1
+第一步 根據id查詢用戶和角色
+第二步 把角色放到用戶裡面
+ (1) 把角色對象放到用戶set集合
+//讓lucy有經紀人角色
+            //1.查詢lucy和經紀人
+            User lucy = (User) session.get(User.class, 1);
+            Role role = (Role) session.get(Role.class, 1);
+            //2.把角色放到用戶的set集合裡面
+            lucy.getSetRole().add(role);
+3. 讓某個用戶沒有某個角色
+第一步 根據id查詢用戶和角色
+//讓某個用戶有某個角色 : testTable2
+第二步 把角色放到用戶裡面
+ (1) 從set集合裡面把角色移除
+  //讓某個用戶沒有某個角色
+             User user = (User) session.get(User.class, 2);
+             Role role = (Role) session.get(Role.class, 3);
+             //2.從用戶裡面把角色去掉
+             user.getSetRole().remove(role);

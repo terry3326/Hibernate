@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.news.bean">
+
+    <class name="Customer" table="Customer" >
+
+        <id name="cid" column="cid" >
+            <!-- 指定主键的生成方式, native: 使用数据库本地方式 -->
+            <generator class="native" />
+        </id>
+        <property name="custLevel" column="custLevel" ></property>
+        <property name="custMobile" column="custMobile" ></property>
+        <property name="custName" column="custName" ></property>
+        <property name="custPhone" column="custPhone" ></property>
+        <property name="custSource" column="custSource" ></property>
+
+        <!-- 在客戶映射文件中,表示所有聯繫人
+             使用set標籤表示所有聯繫人
+             set標籤裡面有name屬性: 屬性值寫在客戶實體類裡面表示聯繫人的set集合名稱
+             cascade(級聯)屬性: save-update:級聯保存  delete:級聯刪除
+             inverse(對面的)屬性默認值:false不放棄關係維護 true表示放棄關係維護
+        -->
+        <set name="setLinkMan" cascade="save-update,delete">
+            <!-- 一對多建表,有外鍵
+                 Hibernate機制: 雙向維護外鍵,在一和多那一方都配置外鍵
+                 column屬性值: 外鍵名稱
+             -->
+            <key column="clid"></key>
+            <!-- 客戶所有的聯繫人,class裡面寫聯繫人實體類全路徑  -->
+            <one-to-many class="LinkMan"/>
+        </set>
+    </class>
+    
+
+
+
+</hibernate-mapping>

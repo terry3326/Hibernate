@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.onetomany.bean">
+    <!-- 配置類和表對應:建議跟實體類同一個包
+        class標籤
+        name屬性:實體類全路徑
+        table屬性: 數據庫表名稱
+    ˊ -->
+    <class name="News" table="NEWS" dynamic-insert="true">
+        <!-- 配置實體類id和表id對應
+            hibernate要求實體類有一個屬性唯一值
+            hibernate要求表有字段作為唯一值
+         -->
+        <!-- id標籤
+              name屬性: 實體類裡面id屬性名稱
+              column屬性: 生成的表字段名稱
+         -->
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <!-- 設定數據庫表id增長策略,
+            	 native:生成表id值就是主鍵自動增長 (根據使用的數據庫幫選擇哪個值:identity、sequence、hilo中的一種)
+            	 uuid：使用uuid生成策略,實體類id屬性類型必須是　＂字符串　＂類型，uuid是長度為32位的16進制字符串
+            	 uuid:8a7e85cf573085dd01573085df5b0000
+             -->
+            <generator class="native" />
+        </id>
+        <!-- 配置其他屬性和表字段對應
+             name屬性:實體類屬性名稱
+             column屬性:生成表字段名稱
+             type:：設置生成表字段的類型，自動對應類型
+         -->
+        <property name="title" not-null="true" unique="true"
+                  index="news_index" length="50"
+                  type="java.lang.String" column="TITLE" >
+        </property>
+
+        <property name="author" type="java.lang.String"
+                  index="news_index">
+            <column name="AUTHOR" />
+        </property>
+
+        <property name="date" type="date">
+            <column name="DATE" />
+        </property>
+
+        <property name="desc"
+                  formula="(SELECT concat(title, ',', author) FROM NEWS n WHERE n.id = id)"></property>
+
+        <property name="content">
+            <column name="CONTENT" sql-type="text"></column>
+        </property>
+
+        <property name="picture" column="PICTURE" type="blob"></property>
+
+    </class>
+
+</hibernate-mapping>

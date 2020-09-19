@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.onetomany.bean">
+
+    <class name="com.onetomany.bean.LinkMan" table="LinkMan" >
+    	
+        <id name="lkm_id" column="lkm_id" >
+            <!-- 指定主键的生成方式, native: 使用数据库本地方式 -->
+            <generator class="native" />
+        </id>
+        <property name="lkm_name" column="lkm_name" ></property>
+        <property name="lkm_gender" column="lkm_gender" >   </property>
+        <property name="lkm_phone" column="lkm_phone" >   </property>
+
+        <!-- 在聯繫人映射文件,表示所屬客戶
+             name屬性: 因為在聯繫人實體類使用customer對象表示,寫customer名稱
+             class屬性: customer全路徑
+             column屬性:外鍵名稱
+        -->
+        <many-to-one name="customer" class="com.onetomany.bean.Customer" column="clid"></many-to-one>
+    </class>
+    
+</hibernate-mapping>

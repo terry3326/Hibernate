@@ -1,0 +1,36 @@
+MySQL多表查詢
+1.內連接:只顯示兩表中有交集條件的數據,兩表中沒有交集條件就不顯示
+/*內連接查詢*/
+select * from customer c,linkman l where c.cid=l.clid
+select * from customer c inner join linkman l on c.cid=l.clid
+
+2.左外連接:會顯示左邊表的所有數據,右邊的表只是關聯,右邊的表只顯示有交集的
+/*左外連接*/
+select * from customer c left  join linkman l on c.cid=l.clid
+
+3.右外連接:會顯示右邊表的所有數據,左邊的表只是關聯,左邊的表只顯示有交集的
+/*右外連接*/
+select * from customer c right join linkman l on c.cid=l.clid
+
+HQL多表查詢
+1.內連接:以客戶和聯繫人為例
+(1) from Customer c inner join c.setLinkMan
+            //1.創建一個Query對象
+            Query query = session.createQuery("from Customer c inner join c.setLinkMan");
+            //2.調用方法得到結果,list裡面每部分都是數組形式
+            List list = query.list();
+
+2.迫切內連接:底層實現和內連接底層是一樣的,區別在內連接返回list中是數組,迫切內連接返回list中是對象
+(1)HQL語具語法: from Customer c inner join fetch c.setLinkMan
+            //1.創建一個Query對象
+            Query query = session.createQuery("from Customer c inner join fetch c.setLinkMan");//迫切內連接
+            //2.調用方法得到結果
+            List list = query.list();
+
+3.左外連接:左外連接返回list中是數組,迫切左外連接返回list中是對象
+(1)HQL語具語法: from Customer c left join  c.setLinkMan
+4.迫切左外連接:
+(1)HQL語具語法: from Customer c left join fetch c.setLinkMan
+5.右外連接:
+(1)HQL語具語法: from Customer c right join  c.setLinkMan
+

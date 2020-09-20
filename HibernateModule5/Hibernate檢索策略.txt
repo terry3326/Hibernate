@@ -1,0 +1,66 @@
+1.Hibernate檢索策略分兩類:
+(1)立即查詢:根據id 查詢,調用get方法,一調用get方法馬上發送語句查詢數據庫
+            //根據cid=1客戶
+            //執行get方法後是否發送sql語句
+            //調用get方法馬上發送sql語句查詢數據庫
+            //Customer customer = (Customer) session.get(Customer.class, 1);
+(2)延遲查詢:根據id 查詢,還有load方法,調用load方法不會馬上發送語句查詢數據,只有得到對象裡面的值時候才會發送語句查詢資料庫
+            /*
+                1.調用load方法之後,不會馬上發送sql語句
+                  (1)返回對象裡面只有id值
+                2.得到對象裡面不是id的其他值時候才會發送語句
+             */
+            Customer customer = (Customer) session.load(Customer.class, 2);
+            System.out.println(customer.getCid());
+            System.out.println(customer.getCustName());
+
+2.延遲查詢分成兩類：
+(1)類級別延遲:根據id查詢返回實體類對象,調用load方法不會馬上發送語句
+(2)關聯級別延遲(默認):查詢某個客戶,再查詢這個客戶的所有聯繫人,查詢客戶的所有聯繫人的過程是否需要延遲,這個過程稱為關聯級別延遲
+            //根據cid=1客戶,再查詢這個客戶裡面的所有聯繫人
+            Customer customer = (Customer) session.get(Customer.class, 1);
+            //再查詢這個客戶裡面的所有聯繫人
+            //直接得到客戶裡面聯繫人的set集合
+
+            //得到set集合,是否發送語句
+            Set<LinkMan> linkMan = customer.getSetLinkMan();
+            //發送語句
+            System.out.println(linkMan.size());
+
+※關聯級別延遲操作
+1. 在映射文件中進行配置實現
+(1)根據客戶得到所有聯繫人,在客戶映射文件中配置
+
+2.在set標籤上使用屬性
+(1)fetch: 值 → select默認)
+(2)lazy: 值  → true:延遲(默認)  / false:不延遲  / extra:極其延遲
+
+ fetch="select" lazy="true"  → 默認效果
+ fetch="select" lazy="false" → 調用get之後,發送兩條sql語句
+ fetch="select" lazy="extra" → 極其懶惰,要麼值給什麼值
+                 Hibernate:
+                     select
+                         count(lkm_id)
+                     from
+                         LinkMan
+                     where
+                         clid =?
+
+※批量抓取
+1. 查詢所有的客戶,返回list集合,遍歷list集合,得到每個客戶,得到每個客戶的所有聯繫人
+(1)上面操作代碼,發送多條sql語句
+            //查詢所有客戶
+            Criteria criteria = session.createCriteria(Customer.class);
+            List<Customer> list = criteria.list();
+            //得到每個客戶裡面所有的聯繫人
+            for (Customer customer : list) {
+                System.out.println(customer.getCid()+"::"+customer.getCustName());
+                Set<LinkMan> setLinkMan = customer.getSetLinkMan();
+                for (LinkMan linkMan : setLinkMan) {
+                    System.out.println(linkMan.getLkm_id()+"::"+linkMan.getLkm_name());
+                }
+            }
+
+2. 在客戶映射文件中,set標籤配置
+(1)batch-size值,值越大發送語句越少
+<set name="setLinkMan" cascade="save-update,delete" batch-size="10">

@@ -14,6 +14,18 @@ public class Customer {
     //hibernate要求使用集合表示多的數據,使用set集合
     private Set<LinkMan> setLinkMan = new HashSet<LinkMan>();
 
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "cid=" + cid +
+                ", custName='" + custName + '\'' +
+                ", custLevel='" + custLevel + '\'' +
+                ", custSource='" + custSource + '\'' +
+                ", custPhone='" + custPhone + '\'' +
+                ", custMobile='" + custMobile + '\'' +
+                ", setLinkMan=" + setLinkMan +
+                '}';
+    }
 
     public Customer() {
     }

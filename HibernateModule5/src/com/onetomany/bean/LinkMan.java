@@ -9,6 +9,16 @@ public class LinkMan {
     //在聯繫人實體類裡面表示所屬客戶,一個聯繫人只能屬於一個客戶
     private Customer customer ;
 
+    @Override
+    public String toString() {
+        return "LinkMan{" +
+                "lkm_id=" + lkm_id +
+                ", lkm_name='" + lkm_name + '\'' +
+                ", lkm_gender='" + lkm_gender + '\'' +
+                ", lkm_phone='" + lkm_phone + '\'' +
+                '}';
+    }
+
     public Customer getCustomer() {
         return customer;
     }

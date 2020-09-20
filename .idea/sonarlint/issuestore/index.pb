@@ -49,3 +49,7 @@ i
 9HibernateModule5/src/com/onetomany/test/HibernateHQL.java,8\4\84046081fb715d55f0e570466e0f615f69835818
 [
 +HibernateModule5/Hibernate 查詢方式.txt,8\f\8fc18c0a338ededcb975bebc40b17123ed5588e0
+T
+$HibernateModule2/一對多筆記.txt,a\1\a1513b1af879538fec2955f7d4430656d51076fd
+i
+9HibernateModule5/src/com/onetomany/test/HibernateQBC.java,d\1\d125673a050d75bdb391146f2577b0f21d9470b8

@@ -102,8 +102,61 @@ from 實體類名稱 where 實體類屬性名稱=? and 實體類屬性名稱=?
             int count = lobj.intValue();
 
 
-4. QBC查詢
-(1)criteria對象
+4. QBC查詢:使用HQL查詢需要寫HQL語句實現,但是使用QBC時候,不需要寫語句了,使用方法實現,操作實體類和屬性
+1./查詢所有
+            //1.創建一個Criteria對象
+            Criteria criteria = session.createCriteria(Customer.class);
+            //2.調用方法得到結果
+            List<Customer> list = criteria.list();
+
+2./條件查詢:沒有語句,使用封裝的方法實現
+            //1.創建一個Criteria對象
+            Criteria criteria = session.createCriteria(Customer.class);
+            //2.使用criteria對象裡面的方法設置條件值
+            //首先使用add方法,表示設置條件值
+            //在add方法裡面使用類的方法實現條件設置
+            //類似等於cid=?
+//            criteria.add(Restrictions.eq("cid", 1));
+//            criteria.add(Restrictions.eq("custName", "百度"));
+
+            //模糊查詢
+            criteria.add(Restrictions.like("custName", "%百%"));
+
+3./排序查詢
+            //1.創建一個Criteria對象
+            Criteria criteria = session.createCriteria(Customer.class);
+            //2.設置對哪個屬性進行排序,設置排序規則
+            criteria.addOrder(Order.desc("cid"));
+
+4./分頁查詢 開始位置計算公式:(當前頁-1)*每頁紀錄數
+            //1.創建一個Criteria對象
+            Criteria criteria = session.createCriteria(Customer.class);
+            //2.設置分頁數據
+            //2.1設置開始位置
+            criteria.setFirstResult(0);
+            //2.2每頁顯示記錄數
+            criteria.setMaxResults(3);
+            //3.調用方法得到結果
+            List<Customer> list = criteria.list();
+
+5./統計查詢
+            //1.創建一個Criteria對象
+            Criteria criteria = session.createCriteria(Customer.class);
+            //2.設置操作
+            criteria.setProjection(Projections.rowCount());
+            //3.調用方法得到結果
+            Object obj = criteria.uniqueResult();
+            Long lobj = (Long) obj;
+            int count = lobj.intValue();
+6./離線查詢
+(1)servlet調用service,service調用Dao,在Dao裡面對數據庫CRUD操作
+(2)在Dao裡面使用Hibernate框架,使用Hibernate框架時候,調用session裡面的方法實現功能
+            //1.創建對象
+            //Criteria criteria = session.createCriteria(Customer.class);
+            DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Customer.class);
+            //2.最終執行時候才需要到session
+            Criteria criteria = detachedCriteria.getExecutableCriteria(session);
+            List<Customer> list = criteria.list();
 
 5. 本地SQL查詢
 (1)SQLQuery對象,使用普通sql實現查詢

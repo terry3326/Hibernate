@@ -1,0 +1,33 @@
+
+U
+java:S2259>"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
+`
+java:S2259a"EA "NullPointerException" could be thrown; "session" is nullable here.(ËÇÇÓûÿÿÿÿ
+a
+java:S2259¼"EA "NullPointerException" could be thrown; "session" is nullable here.(ËÇÇÓûÿÿÿÿ
+U
+java:S2259_"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
+`
+java:S2259~"EA "NullPointerException" could be thrown; "session" is nullable here.(ËÇÇÓûÿÿÿÿ
+`
+java:S2259$"EA "NullPointerException" could be thrown; "session" is nullable here.(ËÇÇÓûÿÿÿÿ
+U
+java:S2259""@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
+a
+java:S2259¢"EA "NullPointerException" could be thrown; "session" is nullable here.(ËÇÇÓûÿÿÿÿ
+U
+java:S2259|"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
+V
+java:S2259 "@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
+`
+java:S2259@"EA "NullPointerException" could be thrown; "session" is nullable here.(ËÇÇÓûÿÿÿÿ
+V
+java:S2259º"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
+N	java:S106"9Replace this use of System.out or System.err by a logger.(ê¾ú®
+S	java:S106:"9Replace this use of System.out or System.err by a logger.(Ž³ð¸ûÿÿÿÿ
+N	java:S106Z"9Replace this use of System.out or System.err by a logger.(ê¾ú®
+N	java:S106w"9Replace this use of System.out or System.err by a logger.(ê¾ú®
+O	java:S106›"9Replace this use of System.out or System.err by a logger.(ê¾ú®
+O	java:S106µ"9Replace this use of System.out or System.err by a logger.(ê¾ú®
+Q	java:S125"<This block of commented-out lines of code should be removed.(’š½Œ
+Q	java:S125’"<This block of commented-out lines of code should be removed.(¥ßÂr
